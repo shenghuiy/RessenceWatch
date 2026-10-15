@@ -30,7 +30,7 @@ ink    = GrayLevel[0.17];
 disc   = GrayLevel[0.925];
 planet = GrayLevel[0.915];
 accent = RGBColor[0.96, 0.55, 0.12];
-steel  = {GrayLevel[0.93], GrayLevel[0.62], GrayLevel[0.97], GrayLevel[0.55]};
+rim    = GrayLevel[0.72];
 
 (* ---------- carrier geometry (disc frame, face radius = 1) ----------
    Positions are taken from the reference photo, where the minute marker sits
@@ -146,12 +146,8 @@ minuteRing = Module[{ticks, labels},
 (* black line separating the fixed minute ring from the rotating disc *)
 ringBoundary = {Black, AbsoluteThickness[1.4], Circle[{0, 0}, 0.845]};
 
-(* convex sapphire dome: soft vignette towards the rim *)
-domeShade = Table[{Opacity[0.015], Black, Annulus[{0, 0}, {r, 1.0}]}, {r, 0.90, 0.98, 0.02}];
-
-caseRing = {
-  {GrayLevel[0.2], Disk[{0, 0}, 1.115]},
-  Table[{Blend[steel, i/40], Annulus[{0, 0}, {1.0 + 0.11 i/41, 1.0 + 0.11 (i + 1)/41}]}, {i, 0, 40}]};
+(* flat case ring *)
+caseRing = {rim, Disk[{0, 0}, 1.1]};
 
 (* ---------- the face ---------- *)
 ressenceFace[d_DateObject] := ressenceFace[{
@@ -166,7 +162,6 @@ ressenceFace[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
   Graphics[{
     caseRing,
     {disc, Disk[{0, 0}, 1.0]},
-    domeShade,
     minuteRing,
     ringBoundary,
     (* planets riding on the carrier *)
