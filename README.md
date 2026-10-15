@@ -25,7 +25,7 @@ Get["src/RessenceWatch.wl"]
 
 ressenceFace[DateObject[{2026, 10, 14, 10, 10, 47}]]   (* a Wednesday *)
 ressenceFace[]                    (* now *)
-ressenceWatch[]                   (* live watch with a time-warp slider; needs a notebook front end *)
+ressenceWatch[]                   (* live watch with 1×, 100× and 250× time warp and a reset button; needs a notebook front end *)
 ```
 
 Or open `src/RessenceWatch.nb`, which loads the package and runs the examples.

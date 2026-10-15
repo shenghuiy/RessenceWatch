@@ -279,16 +279,15 @@ faceAt[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
 (* ---------- live watch ---------- *)
 ressenceWatch[] := DynamicModule[{warp = 1, t0 = AbsoluteTime[], base = AbsoluteTime[]},
   Panel[Column[{
+    Row[{"Time warp ",
+      SetterBar[Dynamic[warp, (base = base + warp (AbsoluteTime[] - t0); t0 = AbsoluteTime[]; warp = #) &],
+        {1 -> "1\[Times]", 100 -> "100\[Times]", 250 -> "250\[Times]"}],
+      "  ", Button["Reset to now", (base = AbsoluteTime[]; t0 = AbsoluteTime[]; warp = 1)]}],
     Dynamic[
       Refresh[
         Module[{t = base + warp (AbsoluteTime[] - t0)},
           ressenceFace[DateObject[t]]],
-        UpdateInterval -> 0.1, TrackedSymbols :> {}]],
-    Row[{"Time warp ",
-      Slider[Dynamic[warp, (base = base + warp (AbsoluteTime[] - t0); t0 = AbsoluteTime[]; warp = #) &],
-        {1, 600}, ImageSize -> 220],
-      " ", Dynamic[Round[warp]], "\[Times]"}],
-    Button["Reset to now", (base = AbsoluteTime[]; t0 = AbsoluteTime[]; warp = 1)]
+        UpdateInterval -> 0.1, TrackedSymbols :> {}]]
   }, Alignment -> Center], Background -> Transparent],
   SaveDefinitions -> True];
 
