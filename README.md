@@ -1,4 +1,4 @@
-# RessenWatch
+# RessenceWatch
 
 <p align="center">
   <picture>
@@ -29,7 +29,7 @@ The palette uses `LightDarkSwitched`, so the face follows the notebook theme. A 
 Clone the repository, then load the package file:
 
 ```wl
-Get["/path/to/RessenWatch/src/RessenceWatch.wl"]
+Get["/path/to/RessenceWatch/src/RessenceWatch.wl"]
 ```
 
 Or open `src/RessenceWatch.nb`, which loads the package from its own folder and runs the examples.
