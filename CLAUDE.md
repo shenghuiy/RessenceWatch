@@ -19,7 +19,7 @@ A Ressence Type 1–style watch face in Wolfram Language. Everything lives in on
   rf = RessenceWatch`RessenceWatchFace;
   Export["img/ressence_face.png",
     ImageResize[Rasterize[rf[DateObject[{2026, 10, 14, 10, 10, 30}]], ImageResolution -> 72*2000/420, Background -> None, LightDark -> "Dark"], 2000]];
-  (* same with LightDark -> "Light" for img/ressence_face_black.png *)
+  (* same with LightDark -> "Light" for the *_black files; the black GIF uses Background -> Black *)
   Export["img/ressence_rocs.gif",
     Table[Rasterize[rf[DateObject[{2026, 10, 14, 0, 0, t}]], ImageSize -> 340, Background -> White, LightDark -> "Dark"],
       {t, 36000, 43100, 100}],
