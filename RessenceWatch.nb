@@ -10,24 +10,24 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[      4516,        118]
-NotebookOptionsPosition[      3408,         97]
-NotebookOutlinePosition[      3730,        111]
-CellTagsIndexPosition[      3687,        108]
+NotebookDataLength[      4528,        117]
+NotebookOptionsPosition[      3420,         96]
+NotebookOutlinePosition[      3742,        110]
+CellTagsIndexPosition[      3699,        107]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
-Cell["Ressence Type 1 \[LongDash] ROCS watch built from ClockGauge", "Title",ExpressionUUID->"5e295c03-3738-574d-91e5-d1a3c1d4ef5e"],
+Cell["Ressence Type 1 \[LongDash] ROCS watch in graphics primitives", "Title",ExpressionUUID->"e732860b-68c3-124b-a695-829fe339d05a"],
 
 Cell[TextData[{
  "The main disc is a planet carrier that turns once an hour; the long marker \
 on it reads the minutes against the fixed outer scale. The hour, seconds and \
-day-of-week dials are ",
+day-of-week dials are drawn with graphics primitives and ",
  Cell[BoxData[
   TemplateBox[{
-   "ClockGauge", "paclet:ref/ClockGauge", 
-    "https://reference.wolfram.com/language/ref/ClockGauge.html"},
+   "Text", "paclet:ref/Text", 
+    "https://reference.wolfram.com/language/ref/Text.html"},
    "TextRefLink",
    DisplayFunction->(TagBox[
      ButtonBox[
@@ -38,11 +38,10 @@ day-of-week dials are ",
           RGBColor[0.2823, 0.6666, 0.949]]}, ButtonData -> #2, ContentPadding -> 
       False], 
      MouseAppearanceTag["LinkHand"]]& )]],ExpressionUUID->
-  "9589f8dd-ef64-cd4d-9f8b-a062a40282b9"],
- " satellites mounted on the carrier: they orbit with it (their numerals \
-tilt) while their own hands spin relative to the carrier, like planet gears. \
-"
-}], "Text",ExpressionUUID->"b15ee688-61f4-c241-a0ef-d1cff97e3898"],
+  "2a0dc445-cdf0-b244-91e7-614cf32a5639"],
+ ". They orbit with the carrier but are counter-geared so they never spin: \
+their numerals and ticks stay upright, and only the hands inside turn. "
+}], "Text",ExpressionUUID->"1a650cbb-2806-4e41-80b0-4ab2a9581734"],
 
 Cell[BoxData[
  RowBox[{"Get", "[", 
@@ -51,29 +50,29 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"NotebookDirectory", "[", "]"}], 
      ",", "\"\<RessenceWatch.wl\>\""}], "}"}], "]"}], "]"}]], "Input",Expressi\
-onUUID->"ab8f5dda-7fe1-4a49-8aca-299523d26911"],
+onUUID->"498d9727-89b4-4540-8e69-b6720c74eca1"],
 
-Cell["Live watch", "Section",ExpressionUUID->"c5b22c95-7810-c84c-82c8-fd105a6e42e0"],
+Cell["Live watch", "Section",ExpressionUUID->"09baf57c-352e-9449-8661-0c04a96ff22d"],
 
 Cell[TextData[{
  "Drag ",
  StyleBox["Time warp",
   FontWeight->Bold],
  " up to watch the satellites orbit. "
-}], "Text",ExpressionUUID->"b865d9ce-8682-f945-b8a0-e95824664d37"],
+}], "Text",ExpressionUUID->"9690aca4-8ccd-fe48-baf0-da9a1c5bc635"],
 
 Cell[BoxData[
- RowBox[{"ressenceWatch", "[", "]"}]], "Input",ExpressionUUID->"c2867d47-7d2f-4146-a2e2-e298a96b74f2"],
+ RowBox[{"ressenceWatch", "[", "]"}]], "Input",ExpressionUUID->"399e3697-cf74-c541-a38f-3f027c374d2a"],
 
-Cell["A single frame", "Section",ExpressionUUID->"fcf7a395-affc-0948-96fc-792aaecc85b3"],
+Cell["A single frame", "Section",ExpressionUUID->"56d76a68-ee07-0943-8cb2-bce2fffc8c3d"],
 
 Cell[BoxData[
  RowBox[{"ressenceFace", "[", 
   RowBox[{"{", 
    RowBox[{"10", ",", "10.5", ",", "47", ",", "3"}], "}"}], "]"}]], "Input",Ex\
-pressionUUID->"db44d768-a999-cb42-a579-bf38883061ef"],
+pressionUUID->"bb792a22-bdb4-d244-a3ee-2ef0f69d1b4a"],
 
-Cell["Animation (one hour compressed)", "Section",ExpressionUUID->"b0527d67-1357-fa47-965c-2f20a4013be5"],
+Cell["Animation (one hour compressed)", "Section",ExpressionUUID->"c048e7ed-2a6d-6247-9460-dea0ef6d0e30"],
 
 Cell[BoxData[
  RowBox[{"ListAnimate", "[", 
@@ -93,7 +92,7 @@ Cell[BoxData[
       RowBox[{"ImageSize", "->", "360"}]}], "]"}], ",", 
     RowBox[{"{", 
      RowBox[{"k", ",", "0", ",", "71"}], "}"}]}], "]"}], "]"}]], "Input",Expre\
-ssionUUID->"63204e8b-cec5-9a41-97e5-6e80f4080a85"]
+ssionUUID->"927de2cc-eab4-0244-84c4-e263d2a6e048"]
 },
 FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (July 2, 2026)",
 StyleDefinitions->"Default.nb",
@@ -110,16 +109,16 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[554, 20, 132, 0, 70, "Title",ExpressionUUID->"5e295c03-3738-574d-91e5-d1a3c1d4ef5e"],
-Cell[689, 22, 1038, 22, 70, "Text",ExpressionUUID->"b15ee688-61f4-c241-a0ef-d1cff97e3898"],
-Cell[1708, 46, 279, 7, 70, "Input",ExpressionUUID->"ab8f5dda-7fe1-4a49-8aca-299523d26911"],
-Cell[1983, 55, 84, 0, 70, "Section",ExpressionUUID->"c5b22c95-7810-c84c-82c8-fd105a6e42e0"],
-Cell[2070, 57, 180, 5, 70, "Text",ExpressionUUID->"b865d9ce-8682-f945-b8a0-e95824664d37"],
-Cell[2248, 64, 117, 1, 70, "Input",ExpressionUUID->"c2867d47-7d2f-4146-a2e2-e298a96b74f2"],
-Cell[2367, 67, 88, 0, 70, "Section",ExpressionUUID->"fcf7a395-affc-0948-96fc-792aaecc85b3"],
-Cell[2458, 69, 198, 4, 70, "Input",ExpressionUUID->"db44d768-a999-cb42-a579-bf38883061ef"],
-Cell[2655, 75, 105, 0, 70, "Section",ExpressionUUID->"b0527d67-1357-fa47-965c-2f20a4013be5"],
-Cell[2763, 77, 659, 18, 70, "Input",ExpressionUUID->"63204e8b-cec5-9a41-97e5-6e80f4080a85"]
+Cell[554, 20, 133, 0, 70, "Title",ExpressionUUID->"e732860b-68c3-124b-a695-829fe339d05a"],
+Cell[690, 22, 1048, 21, 70, "Text",ExpressionUUID->"1a650cbb-2806-4e41-80b0-4ab2a9581734"],
+Cell[1720, 45, 279, 7, 70, "Input",ExpressionUUID->"498d9727-89b4-4540-8e69-b6720c74eca1"],
+Cell[1995, 54, 84, 0, 70, "Section",ExpressionUUID->"09baf57c-352e-9449-8661-0c04a96ff22d"],
+Cell[2082, 56, 180, 5, 70, "Text",ExpressionUUID->"9690aca4-8ccd-fe48-baf0-da9a1c5bc635"],
+Cell[2260, 63, 117, 1, 70, "Input",ExpressionUUID->"399e3697-cf74-c541-a38f-3f027c374d2a"],
+Cell[2379, 66, 88, 0, 70, "Section",ExpressionUUID->"56d76a68-ee07-0943-8cb2-bce2fffc8c3d"],
+Cell[2470, 68, 198, 4, 70, "Input",ExpressionUUID->"bb792a22-bdb4-d244-a3ee-2ef0f69d1b4a"],
+Cell[2667, 74, 105, 0, 70, "Section",ExpressionUUID->"c048e7ed-2a6d-6247-9460-dea0ef6d0e30"],
+Cell[2775, 76, 659, 18, 70, "Input",ExpressionUUID->"927de2cc-eab4-0244-84c4-e263d2a6e048"]
 }
 ]
 *)
