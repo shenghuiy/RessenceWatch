@@ -67,7 +67,7 @@ Cell[BoxData[
 Cell["A single frame", "Section",ExpressionUUID->"56d76a68-ee07-0943-8cb2-bce2fffc8c3d"],
 
 Cell[BoxData[
- RowBox[{"ressenceFace", "[", 
+ RowBox[{"RessenceWatchFace", "[", 
   RowBox[{"DateObject", "[",
    RowBox[{"{",
     RowBox[{"2026", ",", "10", ",", "14", ",", "10", ",", "10", ",", "47"}], "}"}], "]"}], "]"}]], "Input",Ex\
@@ -79,7 +79,7 @@ Cell[BoxData[
  RowBox[{"ListAnimate", "[", 
   RowBox[{"Table", "[", 
    RowBox[{
-    RowBox[{"ressenceFace", "[", 
+    RowBox[{"RessenceWatchFace", "[", 
      RowBox[{
       RowBox[{
        RowBox[{"DateObject", "[",

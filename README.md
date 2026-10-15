@@ -23,8 +23,8 @@ Ressence watches use the ROCS (Ressence Orbital Convex System): there are no cen
 ```wl
 Get["src/RessenceWatch.wl"]
 
-ressenceFace[DateObject[{2026, 10, 14, 10, 10, 47}]]   (* a Wednesday *)
-ressenceFace[]                    (* now *)
+RessenceWatchFace[DateObject[{2026, 10, 14, 10, 10, 47}]]   (* a Wednesday *)
+RessenceWatchFace[]                    (* now *)
 ressenceWatch[]                   (* live watch with 1×, 100× and 250× time warp and a reset button; needs a notebook front end *)
 ```
 
@@ -34,7 +34,7 @@ Or open `src/RessenceWatch.nb`, which loads the package and runs the examples.
 
 | File | Contents |
 | --- | --- |
-| `src/RessenceWatch.wl` | The package: `ressenceFace` and `ressenceWatch` |
+| `src/RessenceWatch.wl` | The package: `RessenceWatchFace` and `ressenceWatch` |
 | `src/RessenceWatch.nb` | Notebook with the live watch, a still frame and an animation |
 | `img/ressence_rocs.gif` | One hour compressed into a loop |
 | `img/ressence_face.png` | Still frame, pale dial (dark mode) |

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A Ressence Type 1–style watch face in Wolfram Language. Everything lives in one package, `src/RessenceWatch.wl` (context `RessenceWatch``, public symbols `ressenceFace` and `ressenceWatch`). `src/RessenceWatch.nb` loads it from `NotebookDirectory[]` and runs the examples. `img/` holds the rendered images that the README shows. There is no build, lint or test setup.
+A Ressence Type 1–style watch face in Wolfram Language. Everything lives in one package, `src/RessenceWatch.wl` (context `RessenceWatch``, public symbols `RessenceWatchFace` and `ressenceWatch`). `src/RessenceWatch.nb` loads it from `NotebookDirectory[]` and runs the examples. `img/` holds the rendered images that the README shows. There is no build, lint or test setup.
 
 ## Working with the package
 
@@ -13,10 +13,10 @@ A Ressence Type 1–style watch face in Wolfram Language. Everything lives in on
   ClearAll["RessenceWatch`*", "RessenceWatch`Private`*"];
   Get["<repo>/src/RessenceWatch.wl"];
   ```
-  If a session-context symbol such as `Sessions`…`ressenceFace` shadows the package symbol, call `RessenceWatch`ressenceFace` explicitly.
+  If a session-context symbol such as `Sessions`…`RessenceWatchFace` shadows the package symbol, call `RessenceWatch`RessenceWatchFace` explicitly.
 - After a visual change, regenerate both images with the same settings so they stay consistent:
   ```wl
-  rf = RessenceWatch`ressenceFace;
+  rf = RessenceWatch`RessenceWatchFace;
   Export["img/ressence_face.png",
     ImageResize[Rasterize[rf[DateObject[{2026, 10, 14, 10, 10, 30}]], ImageResolution -> 72*2000/420, Background -> None, LightDark -> "Dark"], 2000]];
   (* same with LightDark -> "Light" for img/ressence_face_black.png *)
