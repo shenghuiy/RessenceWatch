@@ -42,6 +42,8 @@ dayPos  = { 0.455, -0.335}; dayR  = 0.235;
 
 clockwise[v_, a_] := RotationMatrix[-a] . v;
 
+faceHalf = 1.13;   (* half-width of the plot range *)
+
 (* unit vector for a clock angle a (clockwise from 12) *)
 clockDir[a_] := {Sin[a], Cos[a]};
 
@@ -62,29 +64,46 @@ label[str_, p_, s_] := Text[Style[str, ink, FontSize -> fontSize[s], FontFamily 
    planet gear cancels the carrier rotation, so only the hand inside turns. *)
 
 (* Hour dial: numerals on an outer ring, hand on the inner disc. 12 is replaced
-   by a waving hand emoji. *)
+   by the OpenMoji "backhand index pointing left" emoji (U+1F448). *)
 
-(* waving hand in unit coordinates: palm, four fingers, thumb and two motion
-   lines, tilted about the wrist *)
-wavingHand = Rotate[{
-   {Rectangle[{-0.30, -0.55}, {0.30, 0.08}, RoundingRadius -> 0.16],
-    StadiumShape[{{-0.225, 0.0}, {-0.235, 0.42}}, 0.07],
-    StadiumShape[{{-0.075, 0.0}, {-0.07, 0.54}}, 0.07],
-    StadiumShape[{{0.075, 0.0}, {0.085, 0.50}}, 0.07],
-    StadiumShape[{{0.225, -0.02}, {0.25, 0.34}}, 0.065],
-    StadiumShape[{{-0.22, -0.28}, {-0.52, 0.0}}, 0.075]},
-   {Thickness[0.0045], CapForm["Round"],
-    Circle[{0, -0.25}, 0.74, {25 Degree, 55 Degree}],
-    Circle[{0, -0.25}, 0.92, {30 Degree, 50 Degree}]}
-   }, -10 Degree, {0, -0.55}];
+(* OpenMoji 1F448, black line version (https://openmoji.org/library/emoji-1F448/),
+   by the OpenMoji project, licensed CC BY-SA 4.0. Converted from its SVG paths
+   into primitives: y flipped, centred on the drawing, in SVG units (the
+   drawing is 56.2 units wide, drawn with a 2-unit stroke). *)
+openmojiPointLeft = {
+  BezierCurve[{{11.647, -19.62}, {20.736, -19.62}, {28.103, -12.253}, {28.103, -3.165}}],
+  BezierCurve[{{28.103, -3.165}, {28.103, 5.924}, {20.736, 13.291}, {11.647, 13.291}}],
+  Line[{{10.774, -19.62}, {-1.226, -19.62}}],
+  BezierCurve[{{-1.52, -12.628}, {-3.451, -12.709}, {-4.951, -14.34}, {-4.87, -16.272}}],
+  BezierCurve[{{-4.87, -16.272}, {-4.789, -18.203}, {-3.158, -19.703}, {-1.226, -19.622}}],
+  BezierCurve[{{-1.753, -5.631}, {-3.684, -5.712}, {-5.184, -7.343}, {-5.103, -9.275}}],
+  BezierCurve[{{-5.103, -9.275}, {-5.022, -11.206}, {-3.39, -12.706}, {-1.459, -12.625}}],
+  BezierCurve[{{-1.886, -5.635}, {-3.813, -5.79}, {-5.249, -7.478}, {-5.094, -9.405}}],
+  BezierCurve[{{-5.094, -9.405}, {-4.939, -11.331}, {-3.252, -12.768}, {-1.325, -12.613}}],
+  BezierCurve[{{-2.231, 1.406}, {-4.16, 1.283}, {-5.623, -0.381}, {-5.5, -2.31}}],
+  BezierCurve[{{-5.5, -2.31}, {-5.376, -4.239}, {-3.712, -5.703}, {-1.783, -5.579}}],
+  BezierCurve[{{-0.007, 18.36}, {-1.398, 19.703}, {-3.613, 19.665}, {-4.956, 18.274}}],
+  BezierCurve[{{-4.956, 18.274}, {-6.299, 16.884}, {-6.261, 14.668}, {-4.87, 13.325}}],
+  BezierCurve[{{-24.603, 8.406}, {-26.536, 8.406}, {-28.103, 6.839}, {-28.103, 4.906}}],
+  BezierCurve[{{-28.103, 4.906}, {-28.103, 2.973}, {-26.536, 1.406}, {-24.603, 1.406}}],
+  Line[{{-2.268, 1.406}, {-24.603, 1.406}}],
+  Line[{{-24.603, 8.406}, {3.187, 8.406}}],
+  Line[{{-2.656, 11.367}, {-4.87, 13.325}}],
+  BezierCurve[{{2.312, 16.593}, {4.456, 14.64}, {7.48, 13.219}, {11.834, 13.291}}],
+  Line[{{-0.007, 18.36}, {2.373, 16.539}}]};
 
-handEmoji[c_, s_] := {ink, Translate[Scale[wavingHand, s, {0, 0}], c]};
+(* The emoji centred at c, w wide; the stroke keeps OpenMoji's proportions.
+   Coordinates are mapped directly because a Scale transform would also thin
+   the stroke. *)
+handEmoji[c_, w_] := With[{k = w/56.2},
+  {ink, Thickness[2 k/(2 faceHalf)], CapForm["Round"], JoinForm["Round"],
+   openmojiPointLeft /. {x_?NumericQ, y_?NumericQ} :> c + k {x, y}}];
 
 hourDial[h_, m_, r_] := {
   {planet, Disk[{0, 0}, r]},
   {ink, thin, Circle[{0, 0}, r], Circle[{0, 0}, 0.70 r]},
   Table[label[ToString[k], 0.85 r clockDir[2 Pi k/12], 0.034], {k, 1, 11}],
-  handEmoji[0.82 r clockDir[0] + {-0.02 r, 0}, 0.165 r],
+  handEmoji[0.82 r clockDir[0], 0.30 r],
   {ink, taperedHand[clockDir[2 Pi (Mod[h, 12] + m/60)/12], -0.04 r, 0.62 r, 0.032 r, 0.016 r]}};
 
 (* Seconds dial: 12 ticks between two rings, the 12 o'clock tick in orange. *)
@@ -157,7 +176,7 @@ ressenceFace[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
     (* minute marker printed on the carrier *)
     {ink, taperedHand[dir, 0.18, 0.79, 0.022, 0.010]}
     },
-    opts, PlotRange -> 1.13, ImageSize -> 420,
+    opts, PlotRange -> faceHalf, ImageSize -> 420,
     Background -> White]
   ];
 
