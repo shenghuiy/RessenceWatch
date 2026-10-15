@@ -91,8 +91,13 @@ numeral[str_, h_] := Module[{ds = Characters[str], xs, g, c},
   g /. {x_?NumericQ, y_?NumericQ} :> h ({x, y} - c)/ostrichCap];
 
 (* numeral centred at p with height h, baseline along dir *)
-label[str_, p_, h_, dir_ : {1, 0}] := With[{m = RotationMatrix[{{1, 0}, dir}]},
-  {ink, numeral[str, h] /. {x_?NumericQ, y_?NumericQ} :> p + m . {x, y}}];
+(* numeral centred at p with height h, baseline along dir. bold > 0 thickens
+   the strokes by tracing the outline with an ink edge of width bold h; the glyph
+   shrinks to keep its overall height h. (Ostrich Sans Medium strokes are about
+   0.046 h.) *)
+label[str_, p_, h_, dir_ : {1, 0}, bold_ : 0] := With[{m = RotationMatrix[{{1, 0}, dir}]},
+  {ink, If[bold > 0, EdgeForm[{ink, JoinForm["Round"], Thickness[bold h/(2 faceHalf)]}], {}],
+   numeral[str, (1 - bold) h] /. {x_?NumericQ, y_?NumericQ} :> p + m . {x, y}}];
 
 (* points along the outline of a numeral of height 1 *)
 outlinePoints[str_] := outlinePoints[str] = Flatten[
@@ -196,7 +201,8 @@ satellite[g_, pos_, rot_] := Translate[g, clockwise[pos, rot]];
    Ticks run inward from radius tickOut. Each numeral replaces a 10-minute tick
    and spans exactly the minute ticks beside it: from the inner to the outer
    end of their round caps, measured along the numeral's axis (the ticks sit
-   one minute = 6 degrees off it). *)
+   one minute = 6 degrees off it). The numerals are emboldened to about the
+   weight of the ticks. *)
 minuteRing = Module[{tickOut = 0.95, short = 0.055, long = 0.085, tw = 0.0052, ticks, labels, rIn, rOut},
   ticks = Table[
     If[Mod[k, 10] == 0, Nothing,
@@ -206,7 +212,7 @@ minuteRing = Module[{tickOut = 0.95, short = 0.055, long = 0.085, tw = 0.0052, t
   rOut = Cos[2 Pi/60] (tickOut + lineHalf[tw]); rIn = Cos[2 Pi/60] (tickOut - short - lineHalf[tw]);
   labels = Table[
     With[{a = 2 Pi k/60},
-      label[ToString[If[k == 0, 60, k]], (rIn + rOut)/2 clockDir[a], rOut - rIn, {Cos[a], -Sin[a]}]],
+      label[ToString[If[k == 0, 60, k]], (rIn + rOut)/2 clockDir[a], rOut - rIn, {Cos[a], -Sin[a]}, 0.08]],
     {k, 0, 50, 10}];
   {ink, CapForm["Round"], Thickness[tw], ticks, labels}];
 
