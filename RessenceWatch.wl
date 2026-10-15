@@ -62,17 +62,29 @@ label[str_, p_, s_] := Text[Style[str, ink, FontSize -> fontSize[s], FontFamily 
    planet gear cancels the carrier rotation, so only the hand inside turns. *)
 
 (* Hour dial: numerals on an outer ring, hand on the inner disc. 12 is replaced
-   by a small stylised hand logo, as on the Type 1. *)
-logo[c_, s_] := {ink, Thickness[0.0022], CapForm["Round"],
-  Circle[c + {0.35 s, 0}, {0.22 s, 0.3 s}, {-Pi/2, Pi/2}],
-  Line[{{c + {-0.55 s, 0.3 s}, c + {0.35 s, 0.3 s}}, {c + {-0.55 s, 0}, c + {0.2 s, 0}},
-        {c + {-0.3 s, -0.3 s}, c + {0.35 s, -0.3 s}}}]};
+   by a waving hand emoji. *)
+
+(* waving hand in unit coordinates: palm, four fingers, thumb and two motion
+   lines, tilted about the wrist *)
+wavingHand = Rotate[{
+   {Rectangle[{-0.30, -0.55}, {0.30, 0.08}, RoundingRadius -> 0.16],
+    StadiumShape[{{-0.225, 0.0}, {-0.235, 0.42}}, 0.07],
+    StadiumShape[{{-0.075, 0.0}, {-0.07, 0.54}}, 0.07],
+    StadiumShape[{{0.075, 0.0}, {0.085, 0.50}}, 0.07],
+    StadiumShape[{{0.225, -0.02}, {0.25, 0.34}}, 0.065],
+    StadiumShape[{{-0.22, -0.28}, {-0.52, 0.0}}, 0.075]},
+   {Thickness[0.0045], CapForm["Round"],
+    Circle[{0, -0.25}, 0.74, {25 Degree, 55 Degree}],
+    Circle[{0, -0.25}, 0.92, {30 Degree, 50 Degree}]}
+   }, -10 Degree, {0, -0.55}];
+
+handEmoji[c_, s_] := {ink, Translate[Scale[wavingHand, s, {0, 0}], c]};
 
 hourDial[h_, m_, r_] := {
   {planet, Disk[{0, 0}, r]},
   {ink, thin, Circle[{0, 0}, r], Circle[{0, 0}, 0.70 r]},
   Table[label[ToString[k], 0.85 r clockDir[2 Pi k/12], 0.034], {k, 1, 11}],
-  logo[0.81 r clockDir[0] + {0.01 r, 0}, 0.17 r],
+  handEmoji[0.82 r clockDir[0] + {-0.02 r, 0}, 0.165 r],
   {ink, taperedHand[clockDir[2 Pi (Mod[h, 12] + m/60)/12], -0.04 r, 0.62 r, 0.032 r, 0.016 r]}};
 
 (* Seconds dial: 12 ticks between two rings, the 12 o'clock tick in orange. *)
