@@ -12,7 +12,7 @@ Ressence watches use the ROCS (Ressence Orbital Convex System): there are no cen
 - **Satellites:** the hour, seconds and day-of-week dials are mounted on the disc. They orbit with it, but they're counter-geared so the rings never spin: numerals and ticks stay upright, and only the hand inside each one turns.
 - **Hour dial:** upright numerals at 3, 6 and 9, each as large as fits between the ring's two circles, short bars at the other hours, with the OpenMoji 👈 emoji at 12; the hand turns on the inner disc.
 - **Seconds dial:** 12 ticks between two rings, with the 12 o'clock tick in orange.
-- **Day dial:** two hollow tubes, Monday–Friday and (in orange) Saturday–Sunday, clockwise from 12 o'clock, each day taking a seventh of the turn and marked off by small dividers. The hand moves through the current day's arc over the day.
+- **Day dial:** one short tube per day, clockwise from 12 o'clock, each taking a seventh of the turn: solid black for Monday–Friday, hollow orange for Saturday–Sunday. The hand moves through the current day's arc over the day.
 
 ## Usage
 

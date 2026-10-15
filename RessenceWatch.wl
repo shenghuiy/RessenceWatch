@@ -200,16 +200,22 @@ hollowTube[rr_, w_, c1_, c2_] := With[{t1 = Pi/2 - c2, t2 = Pi/2 - c1},
    Circle[rr {Cos[t1], Sin[t1]}, w/2, {t1 - Pi, t1}],
    Circle[rr {Cos[t2], Sin[t2]}, w/2, {t2, t2 + Pi}]}];
 
-dayDial[wd_, frac_, r_] := With[{gap = 0.2, rr = 0.78 r, w = 0.11 r},
+(* the same tube as a filled polygon *)
+solidTube[rr_, w_, c1_, c2_] := With[{t1 = Pi/2 - c2, t2 = Pi/2 - c1},
+  Polygon[Join[
+    Table[(rr + w/2) {Cos[t], Sin[t]}, {t, t1, t2, (t2 - t1)/60}],
+    Table[rr {Cos[t2], Sin[t2]} + w/2 {Cos[t], Sin[t]}, {t, t2, t2 + Pi, Pi/24}],
+    Table[(rr - w/2) {Cos[t], Sin[t]}, {t, t2, t1, (t1 - t2)/60}],
+    Table[rr {Cos[t1], Sin[t1]} + w/2 {Cos[t], Sin[t]}, {t, t1 + Pi, t1 + 2 Pi, Pi/24}]]]];
+
+(* one short tube per day: Monday-Friday solid, Saturday-Sunday hollow *)
+dayDial[wd_, frac_, r_] := With[{gap = 0.13, rr = 0.78 r, w = 0.11 r},
   {
    {planet, Disk[{0, 0}, r]},
    {ink, thin, Circle[{0, 0}, r]},
-   {Thickness[0.0024],
-     {ink, hollowTube[rr, w, gap, 2 Pi 5/7 - gap]},
-     {accent, hollowTube[rr, w, 2 Pi 5/7 + gap, 2 Pi - gap]},
-     (* dividers across the tubes between days *)
-     Table[{If[k > 5, accent, ink], Line[{(rr - w/2) clockDir[2 Pi k/7], (rr + w/2) clockDir[2 Pi k/7]}]},
-       {k, {1, 2, 3, 4, 6}}]},
+   Table[With[{c1 = 2 Pi k/7 + gap, c2 = 2 Pi (k + 1)/7 - gap},
+     If[k < 5, {ink, solidTube[rr, w, c1, c2]},
+       {accent, Thickness[0.0024], hollowTube[rr, w, c1, c2]}]], {k, 0, 6}],
    {ink, taperedHand[clockDir[2 Pi (wd - 1 + frac)/7], -0.06 r, 0.60 r, 0.065 r, 0.03 r]}}];
 
 satellite[g_, pos_, rot_] := Translate[g, clockwise[pos, rot]];
