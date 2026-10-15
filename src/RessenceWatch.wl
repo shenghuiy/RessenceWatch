@@ -16,13 +16,13 @@
    Usage:
      RessenceWatchFace[]                       static face for now
      RessenceWatchFace[DateObject[...]]        static face for that date and time
-     ressenceWatch[]                      live, animated watch (needs front end)
+     RessenceWatch[]                      live, animated watch (needs front end)
 *)
 
 BeginPackage["RessenceWatch`"];
 
 RessenceWatchFace::usage = "RessenceWatchFace[date] draws a Ressence Type 1 style face for a DateObject. RessenceWatchFace[] uses the current time.";
-ressenceWatch::usage = "ressenceWatch[] gives a live, dynamically updating ROCS watch with a time-warp control.";
+RessenceWatch::usage = "RessenceWatch[] gives a live, dynamically updating ROCS watch with a time-warp control.";
 
 Begin["`Private`"];
 
@@ -277,7 +277,7 @@ faceAt[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
   ];
 
 (* ---------- live watch ---------- *)
-ressenceWatch[] := DynamicModule[{warp = 1, t0 = AbsoluteTime[], base = AbsoluteTime[]},
+RessenceWatch[] := DynamicModule[{warp = 1, t0 = AbsoluteTime[], base = AbsoluteTime[]},
   Panel[Column[{
     Row[{"Time warp ",
       SetterBar[Dynamic[warp, (base = base + warp (AbsoluteTime[] - t0); t0 = AbsoluteTime[]; warp = #) &],

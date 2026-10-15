@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A Ressence Type 1–style watch face in Wolfram Language. Everything lives in one package, `src/RessenceWatch.wl` (context `RessenceWatch``, public symbols `RessenceWatchFace` and `ressenceWatch`). `src/RessenceWatch.nb` loads it from `NotebookDirectory[]` and runs the examples. `img/` holds the rendered images that the README shows. There is no build, lint or test setup.
+A Ressence Type 1–style watch face in Wolfram Language. Everything lives in one package, `src/RessenceWatch.wl` (context `RessenceWatch``, public symbols `RessenceWatchFace` and `RessenceWatch`). `src/RessenceWatch.nb` loads it from `NotebookDirectory[]` and runs the examples. `img/` holds the rendered images that the README shows. There is no build, lint or test setup.
 
 ## Working with the package
 

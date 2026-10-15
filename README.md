@@ -46,16 +46,16 @@ Or open `src/RessenceWatch.nb`, which loads the package from its own folder and 
 RessenceWatchFace[]                                      (* the face for the current time *)
 RessenceWatchFace[DateObject[{2026, 10, 14, 10, 10, 47}]]  (* the face for a given date and time *)
 RessenceWatchFace[date, ImageSize -> 300]                (* Graphics options pass through *)
-ressenceWatch[]                                          (* live watch: 1×, 100× or 250× time warp and a reset button *)
+RessenceWatch[]                                          (* live watch: 1×, 100× or 250× time warp and a reset button *)
 ```
 
-`RessenceWatchFace` takes only a `DateObject` (or nothing, for now) and returns `Graphics`. `ressenceWatch[]` needs a notebook front end.
+`RessenceWatchFace` takes only a `DateObject` (or nothing, for now) and returns `Graphics`. `RessenceWatch[]` needs a notebook front end.
 
 ## Files
 
 | File | Contents |
 | --- | --- |
-| `src/RessenceWatch.wl` | The package: `RessenceWatchFace` and `ressenceWatch` |
+| `src/RessenceWatch.wl` | The package: `RessenceWatchFace` and `RessenceWatch` |
 | `src/RessenceWatch.nb` | Notebook with the live watch, a still frame and an animation |
 | `img/ressence_rocs.gif`, `img/ressence_rocs_black.gif` | Two hours compressed into a loop, pale and black dial |
 | `img/ressence_face.png`, `img/ressence_face_black.png` | Still frames, pale and black dial |

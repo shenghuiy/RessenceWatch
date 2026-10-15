@@ -55,14 +55,14 @@ onUUID->"498d9727-89b4-4540-8e69-b6720c74eca1"],
 Cell["Live watch", "Section",ExpressionUUID->"09baf57c-352e-9449-8661-0c04a96ff22d"],
 
 Cell[TextData[{
- "Drag ",
+ "Set ",
  StyleBox["Time warp",
   FontWeight->Bold],
- " up to watch the satellites orbit. "
+ " to 100\[Times] or 250\[Times] to watch the satellites orbit. "
 }], "Text",ExpressionUUID->"9690aca4-8ccd-fe48-baf0-da9a1c5bc635"],
 
 Cell[BoxData[
- RowBox[{"ressenceWatch", "[", "]"}]], "Input",ExpressionUUID->"399e3697-cf74-c541-a38f-3f027c374d2a"],
+ RowBox[{"RessenceWatch", "[", "]"}]], "Input",ExpressionUUID->"399e3697-cf74-c541-a38f-3f027c374d2a"],
 
 Cell["A single frame", "Section",ExpressionUUID->"56d76a68-ee07-0943-8cb2-bce2fffc8c3d"],
 
