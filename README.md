@@ -1,6 +1,6 @@
 # RessenWatch
 
-A Ressence Type 1–style watch face in Wolfram Language, built from `ClockGauge` sub-dials that orbit like planetary gears.
+A light-dial Ressence Type 1–style watch face in Wolfram Language, built from `ClockGauge` sub-dials that orbit like planetary gears. Hands are slightly tapered, and a thin black line separates the fixed minute ring from the rotating disc.
 
 ![ROCS animation](ressence_rocs.gif)
 
