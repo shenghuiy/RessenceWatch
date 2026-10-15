@@ -25,9 +25,9 @@ ressenceWatch::usage = "ressenceWatch[] gives a live, dynamically updating ROCS 
 Begin["`Private`"];
 
 (* ---------- palette ---------- *)
-ink    = GrayLevel[0.97];
-disc   = GrayLevel[0.045];
-planet = GrayLevel[0.075];
+ink    = GrayLevel[0.17];
+disc   = GrayLevel[0.925];
+planet = GrayLevel[0.905];
 steel  = {GrayLevel[0.93], GrayLevel[0.62], GrayLevel[0.97], GrayLevel[0.55]};
 
 (* ---------- carrier geometry (disc frame, face radius = 1) ----------
@@ -35,10 +35,23 @@ steel  = {GrayLevel[0.93], GrayLevel[0.62], GrayLevel[0.97], GrayLevel[0.55]};
    at alpha0 ~ 63 degrees; the satellites are upright in that configuration. *)
 alpha0 = 63 Degree;
 hourPos = {-0.33, -0.165};  hourR = 0.43;
-secPos  = { 0.015, 0.595};  secR  = 0.27;
+secPos  = { 0.015, 0.545};  secR  = 0.25;
 dayPos  = { 0.455, -0.335}; dayR  = 0.235;
 
 clockwise[v_, a_] := RotationMatrix[-a] . v;
+
+(* Slightly tapered hand: wide rounded base at the pivot, narrower rounded tip.
+   ClockGauge lays a graphic marker along +x with its pivot at the origin and
+   scales it to the gauge, so the shape is drawn from x = -w to 1. *)
+taperedHand[w_] := Graphics[{ink, FilledCurve[{
+  Line[{{0, -w}, {0.95, -0.45 w}}], BezierCurve[{{1.0, 0}, {0.95, 0.45 w}}],
+  Line[{{0, w}}], BezierCurve[{{-w, 0}, {0, -w}}]}]}];
+
+(* the same taper as plotting primitives, from radius r0 to r1 along unit vector u *)
+taperedHand[u_, r0_, r1_, w0_, w1_] := With[{n = {-u[[2]], u[[1]]}},
+  FilledCurve[{
+    Line[{r0 u - w0 n, r1 u - w1 n}], BezierCurve[{r1 u - w1 n + 1.3 w1 u, r1 u + w1 n + 1.3 w1 u, r1 u + w1 n}],
+    Line[{r0 u + w0 n}], BezierCurve[{r0 u + w0 n - 1.3 w0 u, r0 u - w0 n - 1.3 w0 u, r0 u - w0 n}]}]];
 
 (* ---------- ClockGauge satellites (drawn in their own upright frame) ---------- *)
 gaugeBase = Sequence[
@@ -46,20 +59,20 @@ gaugeBase = Sequence[
   GaugeStyle -> ink, Background -> None];
 
 hourGauge[h_, m_, s_] := ClockGauge[{h, m, s},
-  GaugeMarkers -> {"Rectangle", None, None},
+  GaugeMarkers -> {taperedHand[0.07], None, None},
   GaugeFaceStyle -> planet, ScaleDivisions -> {12, 1}, TicksStyle -> None,
   LabelStyle -> Directive[ink, 13, FontFamily -> "Arial", FontWeight -> Plain],
   gaugeBase];
 
 secondsGauge[s_] := ClockGauge[{0, 0, s},
-  GaugeMarkers -> {None, None, "Rectangle"},
+  GaugeMarkers -> {None, None, taperedHand[0.06]},
   GaugeFaceStyle -> planet, ScaleDivisions -> {12, 1},
   TicksStyle -> Directive[ink, AbsoluteThickness[2]], LabelStyle -> None,
   gaugeBase];
 
 (* day-of-week: 7 sectors spread round a 12h dial, the hour hand points to the day *)
 dayGauge[wd_, frac_] := ClockGauge[{12 (wd - 1 + frac)/7, 0, 0},
-  GaugeMarkers -> {"Rectangle", None, None},
+  GaugeMarkers -> {taperedHand[0.07], None, None},
   GaugeFaceStyle -> planet, TicksStyle -> None, LabelStyle -> None,
   ScaleDivisions -> {7, 1},
   ScaleRanges -> Table[{12 k/7 + 0.18, 12 (k + 1)/7 - 0.18}, {k, 0, 6}],
@@ -85,21 +98,15 @@ minuteRing = Module[{ticks, labels},
     {k, 0, 50, 10}];
   {ink, CapForm["Round"], AbsoluteThickness[2.2], ticks, labels}];
 
-(* convex sapphire dome: dark vignette towards the rim *)
-domeShade = Table[{Opacity[0.05], Black, Annulus[{0, 0}, {r, 1.0}]}, {r, 0.80, 0.98, 0.02}];
-domeGlint = {Opacity[0.018], White, Disk[{-0.18, 0.52}, {0.62, 0.30}]};
+(* black line separating the fixed minute ring from the rotating disc *)
+ringBoundary = {Black, AbsoluteThickness[1.4], Circle[{0, 0}, 0.845]};
+
+(* convex sapphire dome: soft vignette towards the rim *)
+domeShade = Table[{Opacity[0.015], Black, Annulus[{0, 0}, {r, 1.0}]}, {r, 0.90, 0.98, 0.02}];
 
 caseRing = {
   {GrayLevel[0.2], Disk[{0, 0}, 1.115]},
   Table[{Blend[steel, i/40], Annulus[{0, 0}, {1.0 + 0.11 i/41, 1.0 + 0.11 (i + 1)/41}]}, {i, 0, 40}]};
-
-strap = {GrayLevel[0.08], EdgeForm[GrayLevel[0.2]],
-  Rectangle[{-0.62, 0.85}, {0.62, 2.0}, RoundingRadius -> 0.08],
-  Rectangle[{-0.62, -2.0}, {0.62, -0.85}, RoundingRadius -> 0.08]};
-
-lugs = Table[{Blend[steel, 0.3], EdgeForm[GrayLevel[0.5]],
-  Polygon[{{sx 0.56, sy 0.80}, {sx 0.66, sy 0.80}, {sx 0.66, sy 1.08}, {sx 0.58, sy 1.08}}]},
-  {sx, {-1, 1}}, {sy, {-1, 1}}];
 
 (* ---------- the face ---------- *)
 ressenceFace[d_DateObject] := ressenceFace[{
@@ -112,19 +119,19 @@ ressenceFace[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
   rot = alpha - alpha0;                 (* carrier rotation relative to photo pose *)
   dir = {Sin[alpha], Cos[alpha]};
   Graphics[{
-    strap, lugs, caseRing,
+    caseRing,
     {disc, Disk[{0, 0}, 1.0]},
     domeShade,
     minuteRing,
+    ringBoundary,
     (* planets riding on the carrier *)
     uprightSatellite[hourGauge[h, m, s], hourPos, hourR, rot],
     uprightSatellite[secondsGauge[s], secPos, secR, rot],
     uprightSatellite[dayGauge[wd, (h + m/60)/24], dayPos, dayR, rot],
     (* minute marker printed on the carrier *)
-    {ink, CapForm["Round"], AbsoluteThickness[7], Line[{0.18 dir, 0.80 dir}]},
-    domeGlint
+    {ink, taperedHand[dir, 0.18, 0.79, 0.022, 0.010]}
     },
-    opts, PlotRange -> {{-1.2, 1.2}, {-1.55, 1.55}}, ImageSize -> 420,
+    opts, PlotRange -> 1.13, ImageSize -> 420,
     Background -> White]
   ];
 
