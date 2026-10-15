@@ -158,12 +158,16 @@ handEmoji[c_, w_] := With[{k = w/56.2},
   {ink, Thickness[1.05 * 2 k/(2 faceHalf)], CapForm["Round"], JoinForm["Round"],
    openmojiPointLeft /. {x_?NumericQ, y_?NumericQ} :> c + k {x, y}}];
 
-(* Upright numerals filling the ring between the two circles: each is as large
-   as fits, up to the full ring width. Computed once per dial radius. *)
+(* Hour ring: upright numerals at 3, 6 and 9, each as large as fits between the
+   two circles (up to the full ring width); short radial bars at the other
+   hours. Computed once per dial radius. *)
 hourNumerals[r_] := hourNumerals[r] =
-  With[{ri = 0.70 r + lineHalf[thinW], ro = r - lineHalf[thinW]},
-    Table[With[{a = 2 Pi k/12}, With[{f = ringFit[ToString[k], a, ri, ro]},
-      label[ToString[k], f[[2]] clockDir[a], f[[1]]]]], {k, 1, 11}]];
+  With[{ri = 0.70 r + lineHalf[thinW], ro = r - lineHalf[thinW], bar = 0.4 (0.30 r)},
+    Table[With[{a = 2 Pi k/12},
+      If[MemberQ[{3, 6, 9}, k],
+        With[{f = ringFit[ToString[k], a, ri, ro]}, label[ToString[k], f[[2]] clockDir[a], f[[1]]]],
+        {ink, CapForm["Round"], Thickness[0.0052],
+          Line[{(0.85 r - bar/2) clockDir[a], (0.85 r + bar/2) clockDir[a]}]}]], {k, 1, 11}]];
 
 hourDial[h_, m_, r_] := {
   {planet, Disk[{0, 0}, r]},
