@@ -242,7 +242,7 @@ minuteRing = Module[{tickOut = 0.95, short = 0.055, long = 0.085, tw = 0.0052, t
 ringBoundary = {Black, AbsoluteThickness[1.428], Circle[{0, 0}, 0.845]};
 
 (* flat case ring *)
-caseRing = {rim, Disk[{0, 0}, 1.1]};
+caseRing = {rim, Disk[{0, 0}, 1.097]};
 
 (* ---------- the face ---------- *)
 ressenceFace[d_DateObject] := ressenceFace[{
