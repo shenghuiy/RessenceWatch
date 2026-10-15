@@ -1,0 +1,127 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[      4516,        118]
+NotebookOptionsPosition[      3408,         97]
+NotebookOutlinePosition[      3730,        111]
+CellTagsIndexPosition[      3687,        108]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["Ressence Type 1 \[LongDash] ROCS watch built from ClockGauge", "Title",ExpressionUUID->"5e295c03-3738-574d-91e5-d1a3c1d4ef5e"],
+
+Cell[TextData[{
+ "The main disc is a planet carrier that turns once an hour; the long marker \
+on it reads the minutes against the fixed outer scale. The hour, seconds and \
+day-of-week dials are ",
+ Cell[BoxData[
+  TemplateBox[{
+   "ClockGauge", "paclet:ref/ClockGauge", 
+    "https://reference.wolfram.com/language/ref/ClockGauge.html"},
+   "TextRefLink",
+   DisplayFunction->(TagBox[
+     ButtonBox[
+      StyleBox[#, ShowStringCharacters -> True, FontFamily -> 
+       "Source Sans Pro"], 
+      BaseStyle -> {"Link", FontColor -> LightDarkSwitched[
+          RGBColor[0.02, 0.286, 0.651], 
+          RGBColor[0.2823, 0.6666, 0.949]]}, ButtonData -> #2, ContentPadding -> 
+      False], 
+     MouseAppearanceTag["LinkHand"]]& )]],ExpressionUUID->
+  "9589f8dd-ef64-cd4d-9f8b-a062a40282b9"],
+ " satellites mounted on the carrier: they orbit with it (their numerals \
+tilt) while their own hands spin relative to the carrier, like planet gears. \
+"
+}], "Text",ExpressionUUID->"b15ee688-61f4-c241-a0ef-d1cff97e3898"],
+
+Cell[BoxData[
+ RowBox[{"Get", "[", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], 
+     ",", "\"\<RessenceWatch.wl\>\""}], "}"}], "]"}], "]"}]], "Input",Expressi\
+onUUID->"ab8f5dda-7fe1-4a49-8aca-299523d26911"],
+
+Cell["Live watch", "Section",ExpressionUUID->"c5b22c95-7810-c84c-82c8-fd105a6e42e0"],
+
+Cell[TextData[{
+ "Drag ",
+ StyleBox["Time warp",
+  FontWeight->Bold],
+ " up to watch the satellites orbit. "
+}], "Text",ExpressionUUID->"b865d9ce-8682-f945-b8a0-e95824664d37"],
+
+Cell[BoxData[
+ RowBox[{"ressenceWatch", "[", "]"}]], "Input",ExpressionUUID->"c2867d47-7d2f-4146-a2e2-e298a96b74f2"],
+
+Cell["A single frame", "Section",ExpressionUUID->"fcf7a395-affc-0948-96fc-792aaecc85b3"],
+
+Cell[BoxData[
+ RowBox[{"ressenceFace", "[", 
+  RowBox[{"{", 
+   RowBox[{"10", ",", "10.5", ",", "47", ",", "3"}], "}"}], "]"}]], "Input",Ex\
+pressionUUID->"db44d768-a999-cb42-a579-bf38883061ef"],
+
+Cell["Animation (one hour compressed)", "Section",ExpressionUUID->"b0527d67-1357-fa47-965c-2f20a4013be5"],
+
+Cell[BoxData[
+ RowBox[{"ListAnimate", "[", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"ressenceFace", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"10", "+", 
+         RowBox[{"k", "/", "72"}]}], ",", 
+        RowBox[{"60.", " ", 
+         RowBox[{"k", "/", "72"}]}], ",", 
+        RowBox[{"Mod", "[", 
+         RowBox[{
+          RowBox[{"25", " ", "k"}], ",", "60"}], "]"}], ",", "3"}], "}"}], ",", 
+      RowBox[{"ImageSize", "->", "360"}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"k", ",", "0", ",", "71"}], "}"}]}], "]"}], "]"}]], "Input",Expre\
+ssionUUID->"63204e8b-cec5-9a41-97e5-6e80f4080a85"]
+},
+FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (July 2, 2026)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2df33a99-18f5-2642-a13d-463fcd99bc59"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 132, 0, 70, "Title",ExpressionUUID->"5e295c03-3738-574d-91e5-d1a3c1d4ef5e"],
+Cell[689, 22, 1038, 22, 70, "Text",ExpressionUUID->"b15ee688-61f4-c241-a0ef-d1cff97e3898"],
+Cell[1708, 46, 279, 7, 70, "Input",ExpressionUUID->"ab8f5dda-7fe1-4a49-8aca-299523d26911"],
+Cell[1983, 55, 84, 0, 70, "Section",ExpressionUUID->"c5b22c95-7810-c84c-82c8-fd105a6e42e0"],
+Cell[2070, 57, 180, 5, 70, "Text",ExpressionUUID->"b865d9ce-8682-f945-b8a0-e95824664d37"],
+Cell[2248, 64, 117, 1, 70, "Input",ExpressionUUID->"c2867d47-7d2f-4146-a2e2-e298a96b74f2"],
+Cell[2367, 67, 88, 0, 70, "Section",ExpressionUUID->"fcf7a395-affc-0948-96fc-792aaecc85b3"],
+Cell[2458, 69, 198, 4, 70, "Input",ExpressionUUID->"db44d768-a999-cb42-a579-bf38883061ef"],
+Cell[2655, 75, 105, 0, 70, "Section",ExpressionUUID->"b0527d67-1357-fa47-965c-2f20a4013be5"],
+Cell[2763, 77, 659, 18, 70, "Input",ExpressionUUID->"63204e8b-cec5-9a41-97e5-6e80f4080a85"]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -1,0 +1,5 @@
+*.nb~
+*.wl~
+.DS_Store
+Thumbs.db
+.claude/
