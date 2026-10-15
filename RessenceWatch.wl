@@ -1,11 +1,12 @@
 (* ::Package:: *)
-(* Ressence Type 1 style watch face built from ClockGauge satellites.
+
+(* Ressence Type 1 style watch face drawn with graphics primitives and Text.
 
    ROCS (Ressence Orbital Convex System) model
    -------------------------------------------
    * The whole main disc is the planet carrier: it turns clockwise once per hour.
      The long "minute hand" is simply a marker printed on that disc.
-   * Each sub-dial is a ClockGauge "planet" mounted on the carrier and orbits
+   * Each sub-dial is a "planet" mounted on the carrier and orbits
      with it, while its own hand spins on its own axis.
    * The hour, seconds and 7-day rings are counter-geared so they never spin:
      they orbit but stay upright, and only the hand inside turns.
@@ -27,7 +28,8 @@ Begin["`Private`"];
 (* ---------- palette ---------- *)
 ink    = GrayLevel[0.17];
 disc   = GrayLevel[0.925];
-planet = GrayLevel[0.905];
+planet = GrayLevel[0.915];
+accent = RGBColor[0.96, 0.55, 0.12];
 steel  = {GrayLevel[0.93], GrayLevel[0.62], GrayLevel[0.97], GrayLevel[0.55]};
 
 (* ---------- carrier geometry (disc frame, face radius = 1) ----------
@@ -40,49 +42,61 @@ dayPos  = { 0.455, -0.335}; dayR  = 0.235;
 
 clockwise[v_, a_] := RotationMatrix[-a] . v;
 
-(* Slightly tapered hand: wide rounded base at the pivot, narrower rounded tip.
-   ClockGauge lays a graphic marker along +x with its pivot at the origin and
-   scales it to the gauge, so the shape is drawn from x = -w to 1. *)
-taperedHand[w_] := Graphics[{ink, FilledCurve[{
-  Line[{{0, -w}, {0.95, -0.45 w}}], BezierCurve[{{1.0, 0}, {0.95, 0.45 w}}],
-  Line[{{0, w}}], BezierCurve[{{-w, 0}, {0, -w}}]}]}];
+(* unit vector for a clock angle a (clockwise from 12) *)
+clockDir[a_] := {Sin[a], Cos[a]};
 
-(* the same taper as plotting primitives, from radius r0 to r1 along unit vector u *)
+(* Slightly tapered hand: wide rounded base, narrower rounded tip, running from
+   radius r0 to r1 along unit vector u. *)
 taperedHand[u_, r0_, r1_, w0_, w1_] := With[{n = {-u[[2]], u[[1]]}},
   FilledCurve[{
     Line[{r0 u - w0 n, r1 u - w1 n}], BezierCurve[{r1 u - w1 n + 1.3 w1 u, r1 u + w1 n + 1.3 w1 u, r1 u + w1 n}],
     Line[{r0 u + w0 n}], BezierCurve[{r0 u + w0 n - 1.3 w0 u, r0 u - w0 n - 1.3 w0 u, r0 u - w0 n}]}]];
 
-(* ---------- ClockGauge satellites (drawn in their own upright frame) ---------- *)
-gaugeBase = Sequence[
-  GaugeFrameStyle -> None, ImagePadding -> 0, PlotRangePadding -> 0,
-  GaugeStyle -> ink, Background -> None];
+(* Sizes scale with the picture, so the face looks the same at any ImageSize. *)
+fontSize[s_] := Scaled[s];
+thin  = Thickness[0.0016];
+label[str_, p_, s_] := Text[Style[str, ink, FontSize -> fontSize[s], FontFamily -> "Arial"], p];
 
-hourGauge[h_, m_, s_] := ClockGauge[{h, m, s},
-  GaugeMarkers -> {taperedHand[0.07], None, None},
-  GaugeFaceStyle -> planet, ScaleDivisions -> {12, 1}, TicksStyle -> None,
-  LabelStyle -> Directive[ink, 13, FontFamily -> "Arial", FontWeight -> Plain],
-  gaugeBase];
+(* ---------- satellites: drawn upright, centred at the origin, radius r ----------
+   Each satellite is translated to its orbit position but never rotated: the
+   planet gear cancels the carrier rotation, so only the hand inside turns. *)
 
-secondsGauge[s_] := ClockGauge[{0, 0, s},
-  GaugeMarkers -> {None, None, taperedHand[0.06]},
-  GaugeFaceStyle -> planet, ScaleDivisions -> {12, 1},
-  TicksStyle -> Directive[ink, AbsoluteThickness[2]], LabelStyle -> None,
-  gaugeBase];
+(* Hour dial: numerals on an outer ring, hand on the inner disc. 12 is replaced
+   by a small stylised hand logo, as on the Type 1. *)
+logo[c_, s_] := {ink, Thickness[0.0022], CapForm["Round"],
+  Circle[c + {0.35 s, 0}, {0.22 s, 0.3 s}, {-Pi/2, Pi/2}],
+  Line[{{c + {-0.55 s, 0.3 s}, c + {0.35 s, 0.3 s}}, {c + {-0.55 s, 0}, c + {0.2 s, 0}},
+        {c + {-0.3 s, -0.3 s}, c + {0.35 s, -0.3 s}}}]};
 
-(* day-of-week: 7 sectors spread round a 12h dial, the hour hand points to the day *)
-dayGauge[wd_, frac_] := ClockGauge[{12 (wd - 1 + frac)/7, 0, 0},
-  GaugeMarkers -> {taperedHand[0.07], None, None},
-  GaugeFaceStyle -> planet, TicksStyle -> None, LabelStyle -> None,
-  ScaleDivisions -> {7, 1},
-  ScaleRanges -> Table[{12 k/7 + 0.18, 12 (k + 1)/7 - 0.18}, {k, 0, 6}],
-  ScaleRangeStyle -> ink,
-  gaugeBase];
+hourDial[h_, m_, r_] := {
+  {planet, Disk[{0, 0}, r]},
+  {ink, thin, Circle[{0, 0}, r], Circle[{0, 0}, 0.70 r]},
+  Table[label[ToString[k], 0.85 r clockDir[2 Pi k/12], 0.034], {k, 1, 11}],
+  logo[0.81 r clockDir[0] + {0.01 r, 0}, 0.17 r],
+  {ink, taperedHand[clockDir[2 Pi (Mod[h, 12] + m/60)/12], -0.04 r, 0.62 r, 0.032 r, 0.016 r]}};
 
-(* Upright satellite: its centre orbits with the carrier, but the planet gear
-   cancels the carrier rotation so the ring never spins (numerals stay upright).
-   Only the hand inside turns. *)
-uprightSatellite[g_, pos_, r_, rot_] := Inset[g, clockwise[pos, rot], Center, 2 r, {1, 0}];
+(* Seconds dial: 12 ticks between two rings, the 12 o'clock tick in orange. *)
+secondsDial[s_, r_] := {
+  {planet, Disk[{0, 0}, r]},
+  {ink, thin, Circle[{0, 0}, r], Circle[{0, 0}, 0.64 r]},
+  {CapForm["Round"], Thickness[0.0042],
+    Table[{If[k == 0, accent, ink],
+      Line[{0.74 r clockDir[2 Pi k/12], 0.90 r clockDir[2 Pi k/12]}]}, {k, 0, 11}]},
+  {ink, taperedHand[clockDir[2 Pi s/60], -0.06 r, 0.58 r, 0.06 r, 0.028 r]}};
+
+(* Day-of-week dial: 7 arcs = Monday ... Sunday clockwise from 12, weekend in
+   orange; the hand sweeps through the current day's arc over the day. *)
+dayDial[wd_, frac_, r_] := With[{gap = 0.11},
+  {
+   {planet, Disk[{0, 0}, r]},
+   {ink, thin, Circle[{0, 0}, r]},
+   {CapForm["Butt"], Thickness[0.0062],
+     Table[{If[k >= 5, accent, ink],
+       (* Circle angles are counter-clockwise from 3 o'clock *)
+       Circle[{0, 0}, 0.78 r, {Pi/2 - 2 Pi (k + 1)/7 + gap, Pi/2 - 2 Pi k/7 - gap}]}, {k, 0, 6}]},
+   {ink, taperedHand[clockDir[2 Pi (wd - 1 + frac)/7], -0.06 r, 0.60 r, 0.065 r, 0.03 r]}}];
+
+satellite[g_, pos_, rot_] := Translate[g, clockwise[pos, rot]];
 
 (* ---------- fixed outer minute ring ---------- *)
 minuteRing = Module[{ticks, labels},
@@ -93,10 +107,10 @@ minuteRing = Module[{ticks, labels},
     {k, 0, 59}];
   labels = Table[
     With[{a = 2 Pi k/60},
-      Text[Style[ToString[If[k == 0, 60, k]], ink, 15, FontFamily -> "Arial"],
+      Text[Style[ToString[If[k == 0, 60, k]], ink, FontSize -> fontSize[0.036], FontFamily -> "Arial"],
         0.905 {Sin[a], Cos[a]}, Center, {Cos[-a], Sin[-a]}]],
     {k, 0, 50, 10}];
-  {ink, CapForm["Round"], AbsoluteThickness[2.2], ticks, labels}];
+  {ink, CapForm["Round"], Thickness[0.0052], ticks, labels}];
 
 (* black line separating the fixed minute ring from the rotating disc *)
 ringBoundary = {Black, AbsoluteThickness[1.4], Circle[{0, 0}, 0.845]};
@@ -125,9 +139,9 @@ ressenceFace[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
     minuteRing,
     ringBoundary,
     (* planets riding on the carrier *)
-    uprightSatellite[hourGauge[h, m, s], hourPos, hourR, rot],
-    uprightSatellite[secondsGauge[s], secPos, secR, rot],
-    uprightSatellite[dayGauge[wd, (h + m/60)/24], dayPos, dayR, rot],
+    satellite[hourDial[h, m + s/60, hourR], hourPos, rot],
+    satellite[secondsDial[s, secR], secPos, rot],
+    satellite[dayDial[wd, (h + m/60)/24, dayR], dayPos, rot],
     (* minute marker printed on the carrier *)
     {ink, taperedHand[dir, 0.18, 0.79, 0.022, 0.010]}
     },
@@ -148,7 +162,7 @@ ressenceWatch[] := DynamicModule[{warp = 1, t0 = AbsoluteTime[], base = Absolute
         {1, 600}, ImageSize -> 220],
       " ", Dynamic[Round[warp]], "\[Times]"}],
     Button["Reset to now", (base = AbsoluteTime[]; t0 = AbsoluteTime[]; warp = 1)]
-  }, Alignment -> Center], Background -> White],
+  }, Alignment -> Center], Background -> Transparent],
   SaveDefinitions -> True];
 
 End[];

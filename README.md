@@ -1,6 +1,6 @@
 # RessenWatch
 
-A light-dial Ressence Type 1–style watch face in Wolfram Language, built from `ClockGauge` sub-dials that orbit like planetary gears. Hands are slightly tapered, and a thin black line separates the fixed minute ring from the rotating disc.
+A light-dial Ressence Type 1–style watch face in Wolfram Language, drawn with graphics primitives and `Text`, with sub-dials that orbit like planetary gears. Hands are slightly tapered, and a thin black line separates the fixed minute ring from the rotating disc.
 
 ![ROCS animation](ressence_rocs.gif)
 
@@ -9,8 +9,10 @@ A light-dial Ressence Type 1–style watch face in Wolfram Language, built from 
 Ressence watches use the ROCS (Ressence Orbital Convex System): there are no central hands, and the whole dial is the display.
 
 - **Carrier disc:** the main disc turns clockwise once per hour. The long marker on it reads the minutes against the outer 10…60 scale, which is fixed to the case.
-- **Satellites:** the hour, seconds and day-of-week dials are `ClockGauge` objects mounted on the disc. They orbit with it, but they're counter-geared so the rings never spin: numerals and ticks stay upright, and only the hand inside each one turns.
-- **Day dial:** 7 slots for Monday–Sunday, clockwise from 12 o'clock. The hand moves through the current day's slot over the day.
+- **Satellites:** the hour, seconds and day-of-week dials are mounted on the disc. They orbit with it, but they're counter-geared so the rings never spin: numerals and ticks stay upright, and only the hand inside each one turns.
+- **Hour dial:** numerals 1–11 on an outer ring with a small hand logo at 12; the hand turns on the inner disc.
+- **Seconds dial:** 12 ticks between two rings, with the 12 o'clock tick in orange.
+- **Day dial:** 7 arcs for Monday–Sunday, clockwise from 12 o'clock, with Saturday and Sunday in orange. The hand moves through the current day's arc over the day.
 
 ## Usage
 
