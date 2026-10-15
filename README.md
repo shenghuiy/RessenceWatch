@@ -64,6 +64,6 @@ RessenceWatch[]                                          (* live watch: 1×, 100
 
 The hand at 12 on the hour dial is [OpenMoji 1F448 "backhand index pointing left"](https://openmoji.org/library/emoji-1F448/) by the [OpenMoji](https://openmoji.org/) project, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Its SVG paths were converted into Wolfram primitives (`openmojiPointLeft` in `RessenceWatch.wl`); that adapted drawing is shared under the same licence.
 
-The numerals use [Varela Round](https://fonts.google.com/specimen/Varela+Round) by Joe Prince, licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/). The package stores the glyph outlines of the few numerals it draws, so the font does not need to be installed.
+The numerals use [Nunito](https://fonts.google.com/specimen/Nunito) Bold by Vernon Adams and others, licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/). The package stores the glyph outlines of the few numerals it draws, so the font does not need to be installed.
 
 Inspired by the Ressence Type 1. This is an unofficial fan project, not affiliated with Ressence.
