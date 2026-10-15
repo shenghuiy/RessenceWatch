@@ -24,6 +24,12 @@ Ressence watches use the ROCS (Ressence Orbital Convex System). There are no cen
 
 The palette uses `LightDarkSwitched`, so the face follows the notebook theme. A light-mode notebook shows the black dial with white markings and green lume; a dark-mode notebook shows the pale dial with orange accents.
 
+<p align="center">
+  <img alt="Black dial (light-mode notebook)" src="img/ressence_face_black.png" width="320">
+  <img alt="Pale dial (dark-mode notebook)" src="img/ressence_face.png" width="320">
+</p>
+<p align="center"><em>Left: black dial (light-mode notebook). Right: pale dial (dark-mode notebook).</em></p>
+
 ## Loading the package
 
 Clone the repository, then load the package file:
