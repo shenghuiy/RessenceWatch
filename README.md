@@ -22,7 +22,7 @@ Ressence watches use the ROCS (Ressence Orbital Convex System). There are no cen
 
 ### Colours
 
-The palette uses `LightDarkSwitched`, so the face follows the notebook theme. A light-mode notebook shows the black dial with white markings and green lume; a dark-mode notebook shows the pale dial with orange accents.
+The palette uses [`LightDarkSwitched`](https://reference.wolfram.com/language/ref/LightDarkSwitched.html), so the face follows the notebook theme. A light-mode notebook shows the black dial with white markings and green lume; a dark-mode notebook shows the pale dial with orange accents.
 
 <p align="center">
   <img alt="Black dial (light-mode notebook)" src="img/ressence_face_black.png" width="320">
@@ -32,7 +32,7 @@ The palette uses `LightDarkSwitched`, so the face follows the notebook theme. A 
 
 ## Loading the package
 
-Clone the repository, then load the package file:
+Requires Wolfram Language 15 or later. Clone the repository, then load the package file:
 
 ```wl
 Get["/path/to/RessenceWatch/src/RessenceWatch.wl"]
