@@ -177,7 +177,7 @@ ressenceFace[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
     {ink, taperedHand[dir, 0.18, 0.79, 0.022, 0.010]}
     },
     opts, PlotRange -> faceHalf, ImageSize -> 420,
-    Background -> White]
+    Background -> None]
   ];
 
 (* ---------- live watch ---------- *)
