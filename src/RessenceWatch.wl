@@ -14,13 +14,14 @@
    * The outer minute scale (10 ... 60) is fixed to the case.
 
    Usage:
+     ressenceFace[]                       static face for now
      ressenceFace[DateObject[...]]        static face for that date and time
      ressenceWatch[]                      live, animated watch (needs front end)
 *)
 
 BeginPackage["RessenceWatch`"];
 
-ressenceFace::usage = "ressenceFace[date] draws a Ressence Type 1 style face for a DateObject.";
+ressenceFace::usage = "ressenceFace[date] draws a Ressence Type 1 style face for a DateObject. ressenceFace[] uses the current time.";
 ressenceWatch::usage = "ressenceWatch[] gives a live, dynamically updating ROCS watch with a time-warp control.";
 
 Begin["`Private`"];
@@ -244,6 +245,8 @@ ringBoundary = {Black, AbsoluteThickness[1.428], Circle[{0, 0}, 0.845]};
 caseRing = {rim, Disk[{0, 0}, 1.097]};
 
 (* ---------- the face ---------- *)
+ressenceFace[opts : OptionsPattern[Graphics]] := ressenceFace[Now, opts];
+
 ressenceFace[d_DateObject, opts : OptionsPattern[Graphics]] := faceAt[{
   DateValue[d, "Hour"], DateValue[d, "Minute"], DateValue[d, "Second"],
   DateValue[d, "ISOWeekDay"]}, opts];

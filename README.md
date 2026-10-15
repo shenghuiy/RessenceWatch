@@ -20,7 +20,7 @@ Ressence watches use the ROCS (Ressence Orbital Convex System): there are no cen
 Get["src/RessenceWatch.wl"]
 
 ressenceFace[DateObject[{2026, 10, 14, 10, 10, 47}]]   (* a Wednesday *)
-ressenceFace[Now]
+ressenceFace[]                    (* now *)
 ressenceWatch[]                   (* live watch with a time-warp slider; needs a notebook front end *)
 ```
 
