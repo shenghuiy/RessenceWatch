@@ -6,6 +6,10 @@ A light-dial Ressence Type 1–style watch face in Wolfram Language, drawn entir
 
 ## How it works
 
+The colours follow the notebook theme through `LightDarkSwitched`: a light-mode notebook shows a black dial with white markings and green lume, and a dark-mode notebook shows the pale dial above.
+
+![Black dial](img/ressence_face_black.png)
+
 Ressence watches use the ROCS (Ressence Orbital Convex System): there are no central hands, and the whole dial is the display.
 
 - **Carrier disc:** the main disc turns clockwise once per hour. The long marker on it reads the minutes against the outer 10…60 scale, which is fixed to the case.
@@ -33,7 +37,8 @@ Or open `src/RessenceWatch.nb`, which loads the package and runs the examples.
 | `src/RessenceWatch.wl` | The package: `ressenceFace` and `ressenceWatch` |
 | `src/RessenceWatch.nb` | Notebook with the live watch, a still frame and an animation |
 | `img/ressence_rocs.gif` | One hour compressed into a loop |
-| `img/ressence_face.png` | Still frame |
+| `img/ressence_face.png` | Still frame, pale dial (dark mode) |
+| `img/ressence_face_black.png` | Still frame, black dial (light mode) |
 
 ## Credits
 

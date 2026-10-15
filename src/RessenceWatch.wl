@@ -26,12 +26,16 @@ ressenceWatch::usage = "ressenceWatch[] gives a live, dynamically updating ROCS 
 
 Begin["`Private`"];
 
-(* ---------- palette ---------- *)
-ink    = GrayLevel[0.17];
-disc   = GrayLevel[0.925];
-planet = GrayLevel[0.915];
-accent = RGBColor[0.96, 0.55, 0.12];
-rim    = GrayLevel[0.72];
+(* ---------- palette ----------
+   LightDarkSwitched[light, dark]: a light-mode notebook shows the black-dial
+   Type 1 with white markings and green lume; dark mode shows the pale dial. *)
+ink    = LightDarkSwitched[GrayLevel[0.95], GrayLevel[0.17]];
+disc   = LightDarkSwitched[GrayLevel[0.04], GrayLevel[0.925]];
+planet = LightDarkSwitched[GrayLevel[0.07], GrayLevel[0.915]];
+accent = LightDarkSwitched[RGBColor[0.45, 0.85, 0.30], RGBColor[0.96, 0.55, 0.12]];
+rim    = LightDarkSwitched[GrayLevel[0.12], GrayLevel[0.72]];
+line   = LightDarkSwitched[GrayLevel[0.35], Black];                      (* ring boundary *)
+marker = LightDarkSwitched[RGBColor[0.45, 0.85, 0.30], GrayLevel[0.17]];  (* minute marker *)
 
 (* ---------- carrier geometry (disc frame, face radius = 1) ----------
    Positions are taken from the reference photo, where the minute marker sits
@@ -239,7 +243,7 @@ minuteRing = Module[{tickOut = 0.95, short = 0.055, long = 0.085, tw = 0.0052, t
   {ink, CapForm["Round"], Thickness[tw], ticks, labels}];
 
 (* black line separating the fixed minute ring from the rotating disc *)
-ringBoundary = {Black, AbsoluteThickness[1.428], Circle[{0, 0}, 0.845]};
+ringBoundary = {line, AbsoluteThickness[1.428], Circle[{0, 0}, 0.845]};
 
 (* flat case ring *)
 caseRing = {rim, Disk[{0, 0}, 1.097]};
@@ -266,7 +270,7 @@ faceAt[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
     satellite[secondsDial[s, secR], secPos, rot],
     satellite[dayDial[wd, (h + m/60)/24, dayR], dayPos, rot],
     (* minute marker printed on the carrier *)
-    {ink, taperedHand[dir, 0.18, 0.79, 0.022, 0.010]}
+    {marker, taperedHand[dir, 0.18, 0.79, 0.022, 0.010]}
     },
     opts, PlotRange -> faceHalf, ImageSize -> 420,
     Background -> None]

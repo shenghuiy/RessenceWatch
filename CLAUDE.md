@@ -18,9 +18,10 @@ A Ressence Type 1–style watch face in Wolfram Language. Everything lives in on
   ```wl
   rf = RessenceWatch`ressenceFace;
   Export["img/ressence_face.png",
-    ImageResize[Rasterize[rf[DateObject[{2026, 10, 14, 10, 10, 30}]], ImageResolution -> 72*2000/420, Background -> None], 2000]];
+    ImageResize[Rasterize[rf[DateObject[{2026, 10, 14, 10, 10, 30}]], ImageResolution -> 72*2000/420, Background -> None, LightDark -> "Dark"], 2000]];
+  (* same with LightDark -> "Light" for img/ressence_face_black.png *)
   Export["img/ressence_rocs.gif",
-    Table[Rasterize[rf[DateObject[{2026, 10, 14, 0, 0, t}]], ImageSize -> 340, Background -> White],
+    Table[Rasterize[rf[DateObject[{2026, 10, 14, 0, 0, t}]], ImageSize -> 340, Background -> White, LightDark -> "Dark"],
       {t, 36000, 43100, 100}],
     "DisplayDurations" -> 0.08, "AnimationRepetitions" -> Infinity];
   ```
@@ -34,4 +35,5 @@ A Ressence Type 1–style watch face in Wolfram Language. Everything lives in on
 - **Coordinates.** Face radius is 1 and the plot range is `±faceHalf` (1.13). Clock angles are measured clockwise from 12 (`clockDir[a] = {Sin a, Cos a}`). Wolfram `Circle` arc angles are counter-clockwise from 3 o'clock, so code that uses them converts with `Pi/2 - a`.
 - **Line widths** are `Thickness[...]`, a fraction of the plot width (2·faceHalf), so the face looks the same at any size. `lineHalf[t]` converts a thickness into a half-width in plot units, for geometry that has to line up with stroke edges.
 - **Numerals are filled outlines, not `Text`.** The front end pixel-snaps text, which looks jagged next to the vector hands. `fontOutline` exports styled Arial Rounded MT Bold text to PDF and imports it back with `"TextOutlines" -> True`, then caches the curves, normalised to ink height 1. Arial Rounded is commercial and isn't embedded, so it must be installed on the machine. `explicitCurve` converts the imported `FilledCurve` specs into `Line`/`BezierCurve` pieces; a contour can start with a 4-point Bézier, which carries its start point. `ringFit` finds by search the largest upright numeral that fits between two radii; the hour dial's 3/6/9 use it.
+- **Palette.** Every colour is a `LightDarkSwitched[light, dark]` in the palette block: light-mode notebooks get the black-dial Type 1 (white markings, green lume), dark mode the pale dial. `Rasterize` picks one with `LightDark -> "Light" | "Dark"`; draw with the palette symbols, never literal colours.
 - **Hour-dial emoji.** The 👈 at 12 comes from OpenMoji (CC BY-SA 4.0), converted from SVG paths (`openmojiPointLeft`). Keep the credit in the README.
