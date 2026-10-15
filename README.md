@@ -2,7 +2,7 @@
 
 A light-dial Ressence Type 1–style watch face in Wolfram Language, drawn entirely with vector graphics primitives (numerals included, as glyph outlines), with sub-dials that orbit like planetary gears. Hands are slightly tapered, and a thin black line separates the fixed minute ring from the rotating disc.
 
-![ROCS animation](ressence_rocs.gif)
+![ROCS animation](img/ressence_rocs.gif)
 
 ## How it works
 
@@ -17,23 +17,23 @@ Ressence watches use the ROCS (Ressence Orbital Convex System): there are no cen
 ## Usage
 
 ```wl
-Get["RessenceWatch.wl"]
+Get["src/RessenceWatch.wl"]
 
 ressenceFace[{10, 10.5, 47, 3}]   (* {hour, minute, second, ISO weekday} *)
 ressenceFace[Now]                 (* a DateObject also works *)
 ressenceWatch[]                   (* live watch with a time-warp slider; needs a notebook front end *)
 ```
 
-Or open `RessenceWatch.nb`, which loads the package and runs the examples.
+Or open `src/RessenceWatch.nb`, which loads the package and runs the examples.
 
 ## Files
 
 | File | Contents |
 | --- | --- |
-| `RessenceWatch.wl` | The package: `ressenceFace` and `ressenceWatch` |
-| `RessenceWatch.nb` | Notebook with the live watch, a still frame and an animation |
-| `ressence_rocs.gif` | One hour compressed into a loop |
-| `ressence_face.png` | Still frame |
+| `src/RessenceWatch.wl` | The package: `ressenceFace` and `ressenceWatch` |
+| `src/RessenceWatch.nb` | Notebook with the live watch, a still frame and an animation |
+| `img/ressence_rocs.gif` | One hour compressed into a loop |
+| `img/ressence_face.png` | Still frame |
 
 ## Credits
 
