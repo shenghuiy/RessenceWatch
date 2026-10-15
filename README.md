@@ -10,7 +10,7 @@ Ressence watches use the ROCS (Ressence Orbital Convex System): there are no cen
 
 - **Carrier disc:** the main disc turns clockwise once per hour. The long marker on it reads the minutes against the outer 10…60 scale, which is fixed to the case.
 - **Satellites:** the hour, seconds and day-of-week dials are mounted on the disc. They orbit with it, but they're counter-geared so the rings never spin: numerals and ticks stay upright, and only the hand inside each one turns.
-- **Hour dial:** numerals 1–11 on an outer ring with a small hand logo at 12; the hand turns on the inner disc.
+- **Hour dial:** numerals 1–11 on an outer ring with a waving hand emoji at 12; the hand turns on the inner disc.
 - **Seconds dial:** 12 ticks between two rings, with the 12 o'clock tick in orange.
 - **Day dial:** 7 arcs for Monday–Sunday, clockwise from 12 o'clock, with Saturday and Sunday in orange. The hand moves through the current day's arc over the day.
 
