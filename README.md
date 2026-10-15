@@ -19,8 +19,8 @@ Ressence watches use the ROCS (Ressence Orbital Convex System): there are no cen
 ```wl
 Get["src/RessenceWatch.wl"]
 
-ressenceFace[{10, 10.5, 47, 3}]   (* {hour, minute, second, ISO weekday} *)
-ressenceFace[Now]                 (* a DateObject also works *)
+ressenceFace[DateObject[{2026, 10, 14, 10, 10, 47}]]   (* a Wednesday *)
+ressenceFace[Now]
 ressenceWatch[]                   (* live watch with a time-warp slider; needs a notebook front end *)
 ```
 

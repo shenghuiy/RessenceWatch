@@ -14,14 +14,13 @@
    * The outer minute scale (10 ... 60) is fixed to the case.
 
    Usage:
-     ressenceFace[DateObject[...]]        static face
-     ressenceFace[{h, m, s, weekday}]     weekday 1 = Monday ... 7 = Sunday
+     ressenceFace[DateObject[...]]        static face for that date and time
      ressenceWatch[]                      live, animated watch (needs front end)
 *)
 
 BeginPackage["RessenceWatch`"];
 
-ressenceFace::usage = "ressenceFace[date] draws a Ressence Type 1 style face for date (DateObject or {h, m, s, weekday}).";
+ressenceFace::usage = "ressenceFace[date] draws a Ressence Type 1 style face for a DateObject.";
 ressenceWatch::usage = "ressenceWatch[] gives a live, dynamically updating ROCS watch with a time-warp control.";
 
 Begin["`Private`"];
@@ -245,11 +244,11 @@ ringBoundary = {Black, AbsoluteThickness[1.428], Circle[{0, 0}, 0.845]};
 caseRing = {rim, Disk[{0, 0}, 1.097]};
 
 (* ---------- the face ---------- *)
-ressenceFace[d_DateObject] := ressenceFace[{
+ressenceFace[d_DateObject, opts : OptionsPattern[Graphics]] := faceAt[{
   DateValue[d, "Hour"], DateValue[d, "Minute"], DateValue[d, "Second"],
-  DateValue[d, "ISOWeekDay"]}];
+  DateValue[d, "ISOWeekDay"]}, opts];
 
-ressenceFace[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
+faceAt[{h_, m_, s_, wd_}, opts : OptionsPattern[Graphics]] := Module[
   {alpha, rot, dir},
   alpha = 2 Pi (m + s/60)/60;          (* carrier / minute angle, clockwise from 12 *)
   rot = alpha - alpha0;                 (* carrier rotation relative to photo pose *)

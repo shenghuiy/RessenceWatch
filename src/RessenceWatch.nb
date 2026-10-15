@@ -68,8 +68,9 @@ Cell["A single frame", "Section",ExpressionUUID->"56d76a68-ee07-0943-8cb2-bce2ff
 
 Cell[BoxData[
  RowBox[{"ressenceFace", "[", 
-  RowBox[{"{", 
-   RowBox[{"10", ",", "10.5", ",", "47", ",", "3"}], "}"}], "]"}]], "Input",Ex\
+  RowBox[{"DateObject", "[",
+   RowBox[{"{",
+    RowBox[{"2026", ",", "10", ",", "14", ",", "10", ",", "10", ",", "47"}], "}"}], "]"}], "]"}]], "Input",Ex\
 pressionUUID->"bb792a22-bdb4-d244-a3ee-2ef0f69d1b4a"],
 
 Cell["Animation (one hour compressed)", "Section",ExpressionUUID->"c048e7ed-2a6d-6247-9460-dea0ef6d0e30"],
@@ -80,15 +81,13 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"ressenceFace", "[", 
      RowBox[{
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"10", "+", 
-         RowBox[{"k", "/", "72"}]}], ",", 
-        RowBox[{"60.", " ", 
-         RowBox[{"k", "/", "72"}]}], ",", 
-        RowBox[{"Mod", "[", 
-         RowBox[{
-          RowBox[{"25", " ", "k"}], ",", "60"}], "]"}], ",", "3"}], "}"}], ",", 
+      RowBox[{
+       RowBox[{"DateObject", "[",
+        RowBox[{"{",
+         RowBox[{"2026", ",", "10", ",", "14", ",", "10", ",", "0", ",", "0"}], "}"}], "]"}], "+",
+       RowBox[{"Quantity", "[",
+        RowBox[{
+         RowBox[{"50", " ", "k"}], ",", "\"\<Seconds\>\""}], "]"}]}], ",",
       RowBox[{"ImageSize", "->", "360"}]}], "]"}], ",", 
     RowBox[{"{", 
      RowBox[{"k", ",", "0", ",", "71"}], "}"}]}], "]"}], "]"}]], "Input",Expre\

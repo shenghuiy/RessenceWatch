@@ -18,9 +18,9 @@ A Ressence Type 1–style watch face in Wolfram Language. Everything lives in on
   ```wl
   rf = RessenceWatch`ressenceFace;
   Export["img/ressence_face.png",
-    ImageResize[Rasterize[rf[{10, 10, 30, 3}], ImageResolution -> 72*2000/420, Background -> None], 2000]];
+    ImageResize[Rasterize[rf[DateObject[{2026, 10, 14, 10, 10, 30}]], ImageResolution -> 72*2000/420, Background -> None], 2000]];
   Export["img/ressence_rocs.gif",
-    Table[Rasterize[rf[{Floor[t/3600], Floor[Mod[t, 3600]/60], Mod[t, 60], 3}], ImageSize -> 340, Background -> White],
+    Table[Rasterize[rf[DateObject[{2026, 10, 14, 0, 0, t}]], ImageSize -> 340, Background -> White],
       {t, 36000, 43100, 100}],
     "DisplayDurations" -> 0.08, "AnimationRepetitions" -> Infinity];
   ```
